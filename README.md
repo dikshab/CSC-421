@@ -1,5 +1,5 @@
 # CSC-421
-CSC 421 
+CSC 421 Assignment 1
 
 Question 1:
 Diksha - Tree search

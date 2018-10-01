@@ -60,8 +60,15 @@ public class Search {
 	}
 	
 	public String IterativeDeepeningGraphSearch() {
-		//TODO
-		return null;	
+        int limit = 0;
+        FrontierFIFO frontierFIFO = new FrontierFIFO();
+        for(;;) {
+            String result = GraphSearchDepthLimited(frontierFIFO, limit);
+            if (result != null) {
+                return result;
+            }
+            limit++;
+        }
 	}
 	
 	//For statistics purposes
@@ -126,8 +133,30 @@ public class Search {
 	}
 
 	private String GraphSearchDepthLimited(Frontier frontier, int limit) {
-		//TODO
-		return null;	
+        cnt = 0;
+        node_list = new ArrayList<Node>();
+
+        initialNode = MakeNode(problem.initialState);
+        node_list.add( initialNode );
+
+        Set<Object> explored = new HashSet<Object>(); //empty set
+        frontier.insert( initialNode );
+	    for(;;){
+	        if(frontier.isEmpty()){
+	            return null;
+            }
+            Node node = frontier.remove();
+
+            if(problem.goal_test(node.state)){
+                return Solution(node);
+            }
+
+            if( !explored.contains(node.state) ) {
+                explored.add(node.state);
+                frontier.insertAll(Expand(node,problem));
+                cnt++;
+            }
+        }
 	}
 
 	private Node MakeNode(Object state) {

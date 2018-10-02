@@ -58,12 +58,12 @@ public class Search {
 		int limit = 0;
 		FrontierLIFO frontierLIFO = new FrontierLIFO();
 		for(;;){
-			
-			String ans = TreeSearchDepthLimited(frontier, limit);
-			if(ans != null)
+			String ans = TreeSearchDepthLimited(frontierLIFO, limit);
+			if(ans != null) {
 				return ans;
+			}
+			limit++;
 		}
-		limit++;
 	}
 	
 	public String IterativeDeepeningGraphSearch() {
@@ -118,7 +118,7 @@ public class Search {
 			Node node = frontier.remove();
 			
 			if( problem.goal_test(node.state)) {
-				this.printTree(initialNode);
+				//this.printTree(initialNode);
 				return Solution(node);
 			}
 			
@@ -144,7 +144,7 @@ public class Search {
 			Node node = frontier.remove();
 
 			if( problem.goal_test(node.state)) {
-				this.printTree(initialNode);
+				//this.printTree(initialNode);
 				return Solution(node);
 			}
 			
@@ -161,7 +161,8 @@ public class Search {
 		node_list = new ArrayList<Node>();
         initialNode = MakeNode(problem.initialState);
         node_list.add(initialNode);
-		
+
+		frontier.insert( initialNode );
 		for(;;){
 			
 			if(frontier.isEmpty())
@@ -175,14 +176,12 @@ public class Search {
 				frontier.insertAll(Expand(node,problem));
 				cnt++;
 			}
-				
 		}
 	}
 
 	private String GraphSearchDepthLimited(Frontier frontier, int limit) {
         cnt = 0;
         node_list = new ArrayList<Node>();
-
         initialNode = MakeNode(problem.initialState);
         node_list.add( initialNode );
 
@@ -198,7 +197,7 @@ public class Search {
                 return Solution(node);
             }
 
-            if( !explored.contains(node.state) && node.depth <limit) {
+            if( !explored.contains(node.state) && node.depth < limit) {
                 explored.add(node.state);
                 frontier.insertAll(Expand(node,problem));
                 cnt++;

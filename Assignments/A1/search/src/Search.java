@@ -75,7 +75,25 @@ public class Search {
 	int cnt; //count expansions
 	List<Node> node_list; //store all nodes ever generated
 	Node initialNode; //initial node based on initial state
-	//
+
+	private void printTree(Node n){
+		for(int i = 0; i < n.depth; i++){
+			System.out.print("  ");
+		}
+
+		System.out.println("State: " + n.state +
+							", g: " + n.path_cost +
+							", h: " + problem.h(n.state) +
+							", f: " + (n.path_cost + problem.h(n.state)) +
+							", Order:" + n.order);
+
+		for(Node m : node_list){
+			if(m.parent_node == n){
+				printTree(m);
+			}
+		}
+	}
+
 	
 	private String TreeSearch(Frontier frontier) {
 		cnt = 0; 
@@ -92,8 +110,10 @@ public class Search {
 			
 			Node node = frontier.remove();
 			
-			if( problem.goal_test(node.state) )
+			if( problem.goal_test(node.state)) {
+				this.printTree(initialNode);
 				return Solution(node);
+			}
 			
 			frontier.insertAll(Expand(node,problem));
 			cnt++;
@@ -115,9 +135,11 @@ public class Search {
 				return null;
 			
 			Node node = frontier.remove();
-			
-			if( problem.goal_test(node.state) )
+
+			if( problem.goal_test(node.state)) {
+				this.printTree(initialNode);
 				return Solution(node);
+			}
 			
 			if( !explored.contains(node.state) ) {
 				explored.add(node.state);

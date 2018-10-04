@@ -141,7 +141,10 @@ public class ProblemCannibals extends Problem {
 	
 	double step_cost(Object fromState, Object toState) { return 1; }
 
-	public double h(Object state) { return 0; }
+	public double h(Object state) {  
+		StateCannibals can_state = (StateCannibals) state;
+		return state.canArray[missL]+state.canArray[cannL]-1;
+	}
 
 
 	public static void main(String[] args) throws Exception {

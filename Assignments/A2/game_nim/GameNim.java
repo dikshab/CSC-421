@@ -3,11 +3,8 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameTicTacToe extends Game {
-	
-
+public class GameNim extends Game {
     int pile = 13;    
-	int losing_state = 1; // player forced to pick up the last coin
 
     int WinningScore = 10;
     int LosingScore = -10;
@@ -16,20 +13,27 @@ public class GameTicTacToe extends Game {
     public GameNim() {
     	currentState = new StateNim();
     }
-    
+
+    /**
+     * The condition that needs to be met to be considered a win
+     **/
     public boolean isWinState(State state)
     {
         StateNim nstate = (StateNim) state;
-        //player who did the last move
-        int previous_player = (state.player==0 ? 1 : 0);  
-        char mark = marks[previous_player];
-        
-		if(losing_state != 1){
+		if(nstate.coins_pile == 1){
             	return true;
-            }
+        }
         return false;
     }
-	
+
+    /**
+     * This situation will never happen but we need it to follow to abstrct class (Game.java)
+     **/
+    public boolean isStuckState(State state)
+    {
+        return false;
+    }
+
 	public Set<State> getSuccessors(State state)
     {
 		if(isWinState(state))
@@ -37,24 +41,50 @@ public class GameTicTacToe extends Game {
 		
 		Set<State> successors = new HashSet<State>();
         StateNim nstate = (StateNim) state;
-        
-        StateNim successor_state;
-        
-                successor_state = new StateNim(nstate);
-				
-                successor_state.coins_pile = (coins_pile-1) || (coins_pile-2) || (coins_pile-3);// we are allowed to take 1, 2 or 3 coins
+
+        //Remove 1 coin
+        StateNim successor_state = new StateNim(nstate);
+        successor_state.coins_pile -= 1;
+        successor_state.player = (state.player==0 ? 1 : 0);
+        isValid(successor_state);
+        successors.add(successor_state);
+
+        //Remove 2 coins
+        successor_state = new StateNim(nstate);
+        successor_state.coins_pile -= 2;
+        successor_state.player = (state.player==0 ? 1 : 0);
+        isValid(successor_state);
+        successors.add(successor_state);
+
+        //Remove 3 coins
+        successor_state = new StateNim(nstate);
+        successor_state.coins_pile -= 3;
+        successor_state.player = (state.player==0 ? 1 : 0);
+        isValid(successor_state);
+        successors.add(successor_state);
+
+        /*
+        successor_state.coins_pile = (coins_pile-1) || (coins_pile-2) || (coins_pile-3);// we are allowed to take 1, 2 or 3 coins
                 successor_state.player = (state.player==0 ? 1 : 0);   
-                successors.add(successor_state);   
+                successors.add(successor_state);
+
+        */
+
         return successors;
-    }	
-	
-    public bool isValid(State state){
-		if(state.coins_pile < 0)
+    }
+
+    /**
+     * Checks if the current state is valid state to be in
+     **/
+    public boolean isValid(State state){
+        StateNim nstate = (StateNim) state;
+
+        //make sure there are not negative numbers in the pile
+		if(nstate.coins_pile < 0)
 			return false;
 		return true;
 	}
-	
-	
+
     public double eval(State state) 
     {   
     	if(isWinState(state)) {
@@ -75,7 +105,7 @@ public class GameTicTacToe extends Game {
         
         Game game = new GameNim(); 
         Search search = new Search(game);
-        int depth;
+        int depth = 13;
         
         //needed to get human's move
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -89,11 +119,12 @@ public class GameTicTacToe extends Game {
                   
             	  //get human's move
                   System.out.print("Enter your *valid* move> ");
-                  int pos = Integer.parseInt( in.readLine() );
+                  int coins_taken = Integer.parseInt( in.readLine() ); //number of coins the user will take
             	  
                   nextState = new StateNim((StateNim)game.currentState);
                   nextState.player = 1;
-                  nextState.  = (coins_pile-1) || (coins_pile-2) || (coins_pile-3);
+                  //nextState.  = (coins_pile-1) || (coins_pile-2) || (coins_pile-3);
+                  nextState.coins_pile -= coins_taken;
                   System.out.println("Human: \n" + nextState);
                   break;
                      

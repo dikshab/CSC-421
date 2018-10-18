@@ -77,6 +77,22 @@ public class zebrawater extends CSP {
 		csp.addBidirectionalArc("old-gold", "snail");
 		csp.addBidirectionalArc("kools", "yellow");
 		
+		for(Object X: color_var)
+			for(Object Y: color_var)
+				csp.addBidirectionalArc(X,Y);
+		for(Object X: drinks_var)
+			for(Object Y: drinks_var)
+				csp.addBidirectionalArc(X,Y);
+		for(Object X: nation_var)
+			for(Object Y: nation_var)
+				csp.addBidirectionalArc(X,Y);
+		for(Object X: pet_var)
+			for(Object Y: pet_var)
+				csp.addBidirectionalArc(X,Y);
+		for(Object X: cigar_var)
+			for(Object Y: cigar_var)
+				csp.addBidirectionalArc(X,Y);
+			
 		Search search = new Search(csp);
 		System.out.println(search.BacktrackingSearch());
 	}

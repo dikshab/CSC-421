@@ -39,7 +39,21 @@ public class zebrawater extends CSP {
 			return false;
 		if(X.equals("kools") && Y.equals("yellow") && !x.equals(y))
 			return false;
-		
+		if(X.equals("milk") && Y.equals(new Integer(3))) //middle house will be 3
+			return false;
+		if(X.equals("norwegian") && Y.equals(new Integer(1))) //first house on the left
+			return false;
+		if(X.equals("chesterfield") && Y.equals("fox") && (Math.abs((Integer)x - (Integer)y == 1)))
+			return false;
+		if(X.equals("kools") && Y.equals("horse") && (Math.abs((Integer)x - (Integer)y == 1)))
+			return false;
+		if(X.equals("lucky-strike") && Y.equals("orange-juice"))
+			return false;
+		if(X.equals("japanese") && Y.equals("parliament"))
+			return false;
+		if(X.equals("norwegian") && Y.equals("blue") && (Math.abs((Integer)x - (Integer)y == 1)))
+			return false;
+
 		//not equal constraint
 		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
 			return false;

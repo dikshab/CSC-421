@@ -1,8 +1,7 @@
-public class CSPGraphColoring extends CSP {
+public class zebrawater extends CSP {
 	
 	static Set<Object> color_var = new HashSet<Object>(
 		Arrays.asList(new String[]{"red", "green", "yellow", "blue", "ivory"}));
-	
 	static Set<Object> drinks_var = new HashSet<Object>(
 		Arrays.asList(new String[]{"coffee", "orange-juice", "tea", "water", "milk"}));
 	static Set<Object> nation_var = new HashSet<Object>(
@@ -42,26 +41,41 @@ public class CSPGraphColoring extends CSP {
 			return false;
 		
 		//not equal constraint
-		if(!x.equals(y)) 
-			return true;
-		
-		return false;
+		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			return false;
+		if(drinks_var.contains(X) && drinks_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			return false;
+		if(nation_var.contains(X) && nation_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			return false;
+		if(pet_var.contains(X) && pet_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			return false;
+		if(cigar_var.contains(X) && cigar_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			return false;
+		return true;
 	}
 		
 	public static void main(String[] args) throws Exception {
-		CSPGraphColoring csp = new CSPGraphColoring();
+		zebrawater csp = new zebrawater();
+		int[] dom = {1, 2, 3, 4, 5};
+		for(Object X: color_var)
+			csp.addDomain(X, dom);
+		for(Object X: drinks_var)
+			csp.addDomain(X, dom);
+		for(Object X: nation_var)
+			csp.addDomain(X, dom);
+		for(Object X: pet_var)
+			csp.addDomain(X, dom);
+		for(Object X: cigar_var)
+			csp.addDomain(X, dom);
 		
-		String[] vars = {"WA", "NT", "Q", "NSW", "V", "SA", "T"}; 
-		String[] colors = {"r", "g", "b"};
-		String[][] pairs = {{"WA","NT"}, {"NT","Q"}, {"Q","NSW"}, {"NSW","V"}, 
-							{"SA", "WA"}, {"SA", "NT"}, {"SA", "Q"}, 
-							{"SA", "NSW"}, {"SA", "V"}};
 		
-		for(Object X : vars) 
-			csp.addDomain(X, colors);
-		
-		for(Object[] p : pairs)
-			csp.addBidirectionalArc(p[0], p[1]);
+		csp.addBidirectionalArc("englishman", "red");
+		csp.addBidirectionalArc("spaniard", "dog");
+		csp.addBidirectionalArc("coffee", "green");
+		csp.addBidirectionalArc("ukranian", "tea");
+		csp.addBidirectionalArc("green", "ivory");
+		csp.addBidirectionalArc("old-gold", "snail");
+		csp.addBidirectionalArc("kools", "yellow");
 		
 		Search search = new Search(csp);
 		System.out.println(search.BacktrackingSearch());

@@ -26,6 +26,21 @@ public class CSPGraphColoring extends CSP {
 		if(!C.get(X).contains(Y))
 			return true;
 		
+		if(X.equals("englishman") && Y.equals("red") && !x.equals(y))
+			return false;
+		if(X.equals("spaniard") && Y.equals("dog") && !x.equals(y))
+			return false;
+		if(X.equals("coffee") && Y.equals("green") && !x.equals(y))
+			return false;
+		if(X.equals("ukranian") && Y.equals("tea") && !x.equals(y))
+			return false;
+		if(X.equals("green") && Y.equals("ivory") && !x.equals(y)) //green is on right to ivory
+			return false;
+		if(X.equals("old-gold") && Y.equals("snails	") && !x.equals(y))
+			return false;
+		if(X.equals("kools") && Y.equals("yellow") && !x.equals(y))
+			return false;
+		
 		//not equal constraint
 		if(!x.equals(y)) 
 			return true;

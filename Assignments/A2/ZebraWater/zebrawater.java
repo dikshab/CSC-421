@@ -1,3 +1,7 @@
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
 public class zebrawater extends CSP {
 	
 	static Set<Object> color_var = new HashSet<Object>(
@@ -10,10 +14,7 @@ public class zebrawater extends CSP {
 		Arrays.asList(new String[]{"dog", "fox", "horse", "zebra", "snail"}));
 	static Set<Object> cigar_var = new HashSet<Object>(
 		Arrays.asList(new String[]{"old-gold", "kools", "chesterfield", "lucky-strike", "parliament"}));
-		
-	
-	
-		
+
 	public boolean isGood(Object X, Object Y, Object x, Object y) { 
 		//if X is not even mentioned in by the constraints, just return true
 		//as nothing can be violated
@@ -24,7 +25,8 @@ public class zebrawater extends CSP {
 		//if there isn't an arc, then no constraint, i.e. it is good
 		if(!C.get(X).contains(Y))
 			return true;
-		
+
+		//equal constraint
 		if(X.equals("englishman") && Y.equals("red") && !x.equals(y))
 			return false;
 		if(X.equals("spaniard") && Y.equals("dog") && !x.equals(y))
@@ -33,15 +35,12 @@ public class zebrawater extends CSP {
 			return false;
 		if(X.equals("ukranian") && Y.equals("tea") && !x.equals(y))
 			return false;
-		if(X.equals("green") && Y.equals("ivory") && Integer (x) - Integer(y) != 1) //green is on right to ivory
+		if(X.equals("green") && Y.equals("ivory") && (Integer)x - (Integer)y != 1) //green is on right to ivory
 			return false;
 		if(X.equals("old-gold") && Y.equals("snails	") && !x.equals(y))
 			return false;
 		if(X.equals("kools") && Y.equals("yellow") && !x.equals(y))
 			return false;
-		
-		//equal constraint
-
 		if(X.equals("milk") && Y.equals(new Integer(3))) //middle house will be 3
 			return false;
 		if(X.equals("norwegian") && Y.equals(new Integer(1))) //first house on the left
@@ -57,7 +56,7 @@ public class zebrawater extends CSP {
 		if(X.equals("norwegian") && Y.equals("blue") && (Integer)x - (Integer)y == 1)
 			return false;
 
-
+		// uniqueness constraints
 		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
 			return false;
 		if(drinks_var.contains(X) && drinks_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
@@ -74,7 +73,8 @@ public class zebrawater extends CSP {
 		
 	public static void main(String[] args) throws Exception {
 		zebrawater csp = new zebrawater();
-		int[] dom = {1, 2, 3, 4, 5};
+
+		Integer[] dom = {1, 2, 3, 4, 5};
 		for(Object X: color_var)
 			csp.addDomain(X, dom);
 		for(Object X: drinks_var)
@@ -85,18 +85,22 @@ public class zebrawater extends CSP {
 			csp.addDomain(X, dom);
 		for(Object X: cigar_var)
 			csp.addDomain(X, dom);
+
 		//unary constraints
-		
+		csp.addDomain("milk", new Integer[]{3});
+		csp.addDomain("norwegian", new Integer[]{1});
 		
 		//binary constraints
 		csp.addBidirectionalArc("englishman", "red");
 		csp.addBidirectionalArc("spaniard", "dog");
 		csp.addBidirectionalArc("coffee", "green");
 		csp.addBidirectionalArc("ukranian", "tea");
-		csp.addBidirectionalArc("green", "ivory");
 		csp.addBidirectionalArc("old-gold", "snail");
 		csp.addBidirectionalArc("kools", "yellow");
-		// uniqueness constraints
+		csp.addBidirectionalArc("lucky-strike", "orange-juice");
+		csp.addBidirectionalArc("japanese", "parliament");
+
+		//uniqueness constraints
 		for(Object X: color_var)
 			for(Object Y: color_var)
 				csp.addBidirectionalArc(X,Y);

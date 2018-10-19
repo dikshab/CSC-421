@@ -21,5 +21,5 @@ Posy
 
 CSC 421 Assignment 2
 Question 1: Done
-Question 2: Still needs formulation
-Question 3: Still needs formulation
+Question 2: Still needs formulation (constraints)
+Question 3: Done

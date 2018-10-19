@@ -14,7 +14,7 @@ public class zebrawater extends CSP {
 	
 	
 		
-	public boolean isGood(Object X, Object Y, Object x, Object y) {
+	public boolean isGood(Object X, Object Y, Object x, Object y) { 
 		//if X is not even mentioned in by the constraints, just return true
 		//as nothing can be violated
 		if(!C.containsKey(X))
@@ -33,14 +33,14 @@ public class zebrawater extends CSP {
 			return false;
 		if(X.equals("ukranian") && Y.equals("tea") && !x.equals(y))
 			return false;
-		if(X.equals("green") && Y.equals("ivory") && !x.equals(y)) //green is on right to ivory
+		if(X.equals("green") && Y.equals("ivory") && Integer (x) - Integer(y) != 1) //green is on right to ivory
 			return false;
 		if(X.equals("old-gold") && Y.equals("snails	") && !x.equals(y))
 			return false;
 		if(X.equals("kools") && Y.equals("yellow") && !x.equals(y))
 			return false;
 		
-		//not equal constraint
+		//equal constraint
 		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
 			return false;
 		if(drinks_var.contains(X) && drinks_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
@@ -51,6 +51,7 @@ public class zebrawater extends CSP {
 			return false;
 		if(cigar_var.contains(X) && cigar_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
 			return false;
+		
 		return true;
 	}
 		
@@ -67,8 +68,10 @@ public class zebrawater extends CSP {
 			csp.addDomain(X, dom);
 		for(Object X: cigar_var)
 			csp.addDomain(X, dom);
+		//unary constraints
 		
 		
+		//binary constraints
 		csp.addBidirectionalArc("englishman", "red");
 		csp.addBidirectionalArc("spaniard", "dog");
 		csp.addBidirectionalArc("coffee", "green");
@@ -76,7 +79,7 @@ public class zebrawater extends CSP {
 		csp.addBidirectionalArc("green", "ivory");
 		csp.addBidirectionalArc("old-gold", "snail");
 		csp.addBidirectionalArc("kools", "yellow");
-		
+		// uniqueness constraints
 		for(Object X: color_var)
 			for(Object Y: color_var)
 				csp.addBidirectionalArc(X,Y);

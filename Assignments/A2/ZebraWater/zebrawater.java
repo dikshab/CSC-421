@@ -27,45 +27,60 @@ public class zebrawater extends CSP {
 			return true;
 
 		//equal constraint
+		//1
 		if(X.equals("englishman") && Y.equals("red") && !x.equals(y))
 			return false;
+		//2
 		if(X.equals("spaniard") && Y.equals("dog") && !x.equals(y))
 			return false;
+		//3
 		if(X.equals("coffee") && Y.equals("green") && !x.equals(y))
 			return false;
+		//4
 		if(X.equals("ukranian") && Y.equals("tea") && !x.equals(y))
 			return false;
-		if(X.equals("green") && Y.equals("ivory") && (Integer)x - (Integer)y != 1) //green is on right to ivory
+		//5
+		if((X.equals("ivory") && Y.equals("green") && !((Integer)x - (Integer)y != 1)) ||
+				(X.equals("green") && Y.equals("ivory") && !((Integer)x - (Integer)y == 1)) )
 			return false;
-		if(X.equals("old-gold") && Y.equals("snails	") && !x.equals(y))
+		//6
+		if(X.equals("old-gold") && Y.equals("snails") && !x.equals(y))
 			return false;
+		//7
 		if(X.equals("kools") && Y.equals("yellow") && !x.equals(y))
 			return false;
-		if(X.equals("milk") && Y.equals(new Integer(3))) //middle house will be 3
+		//8
+		if((X.equals("milk") && !x.equals(new Integer(3))) || (Y.equals("milk") && !y.equals(new Integer(3))))
 			return false;
-		if(X.equals("norwegian") && Y.equals(new Integer(1))) //first house on the left
+		//9
+		if((X.equals("norwegian") && !x.equals(new Integer(1))) || (Y.equals("norwegian") && !y.equals(new Integer(1))))
 			return false;
-		if(X.equals("chesterfield") && Y.equals("fox") && (Integer)x - (Integer)y == 1)
+		//10
+		if(X.equals("chesterfield") && Y.equals("fox") && !(Math.abs((Integer)x - (Integer)y) == 1))
 			return false;
-		if(X.equals("kools") && Y.equals("horse") && (Integer)x - (Integer)y == 1)
+		//11
+		if(X.equals("kools") && Y.equals("horse") && !(Math.abs((Integer)x - (Integer)y) == 1))
 			return false;
-		if(X.equals("lucky-strike") && Y.equals("orange-juice"))
+		//12
+		if(X.equals("lucky-strike") && Y.equals("orange-juice") && !x.equals(y))
 			return false;
-		if(X.equals("japanese") && Y.equals("parliament"))
+		//13
+		if(X.equals("japanese") && Y.equals("parliament") && !x.equals(y))
 			return false;
-		if(X.equals("norwegian") && Y.equals("blue") && (Integer)x - (Integer)y == 1)
+		//14
+		if(X.equals("norwegian") && Y.equals("blue") && !(Math.abs((Integer)x - (Integer)y) == 1))
 			return false;
 
-		// uniqueness constraints
-		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+			// uniqueness constraints
+		if(color_var.contains(X) && color_var.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
-		if(drinks_var.contains(X) && drinks_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+		if(drinks_var.contains(X) && drinks_var.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
-		if(nation_var.contains(X) && nation_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+		if(nation_var.contains(X) && nation_var.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
-		if(pet_var.contains(X) && pet_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+		if(pet_var.contains(X) && pet_var.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
-		if(cigar_var.contains(X) && cigar_var.contains(Y) && !X.equals(Y) &&!x.equals(y)) 
+		if(cigar_var.contains(X) && cigar_var.contains(Y) && !X.equals(Y) && x.equals(y))
 			return false;
 		
 		return true;

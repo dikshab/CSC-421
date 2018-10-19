@@ -19,3 +19,7 @@ Question 5:
 Diksha
 Posy
 
+CSC 421 Assignment 2
+Question 1: Done
+Question 2: Still needs formulation
+Question 3: Still needs formulation

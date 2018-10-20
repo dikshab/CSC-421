@@ -24,7 +24,7 @@ The domain will have a format like {term, term slot, start_time, end_time}
 Constraints:
 a) C_i > C_j for all i>j where C_i is the current course and C_j is the prerequisite course
 
-b)
+b) Let L be a list of terms that the course is in then X belongs to L.
 
 c) i, j <= 4  i,j = number of current courses
 

@@ -1,9 +1,9 @@
 CSC 421 Assignment 2 Question #2
 
-Variables: c courses
+Variables: C courses |C| = n 
 
 Domain:
-The domain will have a format like {term, term slot, time}
+The domain will have a format like {term, term slot, start_time, end_time}
 
 {  (fall2018, 1, 8:00-9:00), (fall2018, 1, 9:00-10:00), ... ,
    (fall2018, 2, 8:00-9:00), (fall2018, 2, 9:00-10:00), ... ,
@@ -22,3 +22,13 @@ The domain will have a format like {term, term slot, time}
 }
 
 Constraints:
+a) C_i > C_j for all i>j where C_i is the current course and C_j is the prerequisite course
+
+b)
+
+c) i, j <= 4  i,j = number of current courses
+
+d) i.    start_time_i != start_time_j
+   ii. 	 end_time_i != end_time_j
+   iii.  start_time_i > start_time_j > end_time_i  (jth class cannot start in between ith class)
+   iv.   start_time_i < end_time_j < end_time_i    (jth class cannot end in between ith class)

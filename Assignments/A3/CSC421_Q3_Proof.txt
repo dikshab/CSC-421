@@ -1,0 +1,38 @@
+============================== prooftrans ============================
+Prover9 (32) version Dec-2007, Dec 2007.
+Process 9440 was started by Posy on Lenovo-PC,
+Sat Nov 17 09:52:11 2018
+The command was "/cygdrive/c/Program Files (x86)/Prover9-Mace4/bin-win32/prover9".
+============================== end of head ===========================
+
+============================== end of input ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 1 at 0.03 (+ 0.09) seconds.
+% Length of proof is 18.
+% Level of proof is 5.
+% Maximum clause weight is 0.
+% Given clauses 0.
+
+1 (all x (hummingbird(x) -> bird(x))) # label(non_clause).  [assumption].
+2 (all x (hummingbird(x) -> rich_colour(x))) # label(non_clause).  [assumption].
+3 -(exists x (bird(x) & large(x) & lives_honey(x))) # label(non_clause).  [assumption].
+4 (all x (bird(x) & -lives_honey(x) -> -rich_colour(x))) # label(non_clause).  [assumption].
+5 (all x (hummingbird(x) -> -large(x))) # label(non_clause) # label(goal).  [goal].
+6 hummingbird(c1).  [deny(5)].
+7 -hummingbird(x) | bird(x).  [clausify(1)].
+8 -hummingbird(x) | rich_colour(x).  [clausify(2)].
+9 bird(c1).  [resolve(6,a,7,a)].
+10 -bird(x) | -large(x) | -lives_honey(x).  [clausify(3)].
+11 -bird(x) | lives_honey(x) | -rich_colour(x).  [clausify(4)].
+12 -large(c1) | -lives_honey(c1).  [resolve(9,a,10,a)].
+13 large(c1).  [deny(5)].
+14 lives_honey(c1) | -rich_colour(c1).  [resolve(9,a,11,a)].
+15 rich_colour(c1).  [resolve(6,a,8,a)].
+16 lives_honey(c1).  [resolve(14,b,15,a)].
+17 -lives_honey(c1).  [resolve(12,a,13,a)].
+18 $F.  [resolve(16,a,17,a)].
+
+============================== end of proof ==========================

@@ -1,0 +1,26 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x (hummingbird(x) -> bird(x)).
+all x (hummingbird(x) -> rich_colour(x)).
+-(exists x (bird(x) & large(x) & lives_honey(x))).
+all x (bird(x) & -lives_honey(x) -> -rich_colour(x)).
+
+end_of_list.
+
+formulas(goals).
+
+all x (hummingbird(x) -> -large(x)).
+
+end_of_list.
+

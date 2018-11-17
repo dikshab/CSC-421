@@ -13,7 +13,7 @@ formulas(assumptions).
 
 all x (hummingbird(x) -> bird(x)).
 all x (hummingbird(x) -> rich_colour(x)).
--(exists x (bird(x) & large(x) & lives_honey(x))).
+all x (bird(x) & large(x) -> -lives_honey(x)).
 all x (bird(x) & -lives_honey(x) -> -rich_colour(x)).
 
 end_of_list.

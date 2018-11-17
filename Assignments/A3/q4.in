@@ -1,0 +1,28 @@
+% Saved by Prover9-Mace4 Version 0.5, December 2007.
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x (gardener(x) -> military_subjects(x)).
+all x (gardener(x) -> human(x)).
+all x (old_people(x) -> human(x)).
+all x (-battle(x) -> -old_people(x)).
+all x (battle(x) -> military_subjects(x)).
+
+end_of_list.
+
+formulas(goals).
+
+all x (gardener(x) -> old_people (x)).
+
+end_of_list.
+

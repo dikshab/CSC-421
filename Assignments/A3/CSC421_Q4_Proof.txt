@@ -1,0 +1,33 @@
+============================== prooftrans ============================
+Prover9 (32) version Dec-2007, Dec 2007.
+Process 11028 was started by Posy on Lenovo-PC,
+Sat Nov 17 10:17:19 2018
+The command was "/cygdrive/c/Program Files (x86)/Prover9-Mace4/bin-win32/prover9".
+============================== end of head ===========================
+
+============================== end of input ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 1 at 0.01 (+ 0.11) seconds.
+% Length of proof is 13.
+% Level of proof is 4.
+% Maximum clause weight is 0.
+% Given clauses 0.
+
+1 (all x (gardener(Me,x) -> military_subject(x))) # label(non_clause).  [assumption].
+2 (all x (battle_Waterloo(x) -> old(x))) # label(non_clause).  [assumption].
+3 (all x (military_subject(x) -> battle_Waterloo(x))) # label(non_clause).  [assumption].
+4 (all x (gardener(Me,x) -> old(x))) # label(non_clause) # label(goal).  [goal].
+5 gardener(Me,c1).  [deny(4)].
+6 -gardener(Me,x) | military_subject(x).  [clausify(1)].
+7 -military_subject(x) | battle_Waterloo(x).  [clausify(3)].
+8 -battle_Waterloo(x) | old(x).  [clausify(2)].
+9 -military_subject(x) | old(x).  [resolve(7,b,8,a)].
+10 -old(c1).  [deny(4)].
+11 -military_subject(c1).  [resolve(9,b,10,a)].
+12 military_subject(c1).  [resolve(5,a,6,a)].
+13 $F.  [resolve(11,a,12,a)].
+
+============================== end of proof ==========================

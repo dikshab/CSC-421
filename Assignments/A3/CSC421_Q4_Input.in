@@ -1,0 +1,25 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+all x (gardener(Me,x) -> military_subject(x)).
+all x (battle_Waterloo(x) -> old(x)).
+all x (military_subject(x) -> battle_Waterloo(x)).
+
+end_of_list.
+
+formulas(goals).
+
+all x (gardener(Me,x) -> old(x)).
+
+end_of_list.
+
